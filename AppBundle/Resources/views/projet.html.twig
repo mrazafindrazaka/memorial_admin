@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Mémorial Numérique{% endblock %}</title>
+        {% block stylesheets %}
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		{% endblock %}
+		{% block head_javascript %}
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+		{% include "@App/includes/navbar.html.twig" %}
+		 
+		<div class="blanc">
+			<h5>LA PORTE DÉSILLES, UN MONUMENT COMMÉMORATIF UNIQUE POUR NANCY</h5>
+			<img src="{{ asset('img/porte_desilles.jpg') }}" class="porte img-fluid rounded mx-auto d-block"/>
+			<h6>GÉNÈSE DE LA PORTE</h6>
+			
+			<p>Édifiée entre 1782 et 1785 à la demande du maréchal de Stainville, commandant de la province, afin de créer une ouverture dans le mur d’octroi de la ville en direction de Metz, la porte Désilles, appelée alors porte Saint-Louis, ou Stainville, célébrait à l’origine l’engagement du roi Louis XVI dans la guerre d’Indépendance américaine (1775-1783), ainsi que la prospérité économique et maritime qui résulta de cette alliance. C’est la naissance, le 22 octobre 1781, du Dauphin Louis Joseph de France, fils de Louis XVI et descendant du dernier duc de Lorraine, qui présida à la décision d’édifier ce monument.</p>
+			
+		</div>
+		<div class='gris'>
+			<h6>ÉLÉVATION ET DÉCOR</h6>
+			
+			<p>Traditionnellement attribuée à l'architecte Didier-Joseph-François Mélin, entrepreneur des fortifications, la porte présente deux élévations d’esprit fort différent. La façade intérieure de la porte, donnant sur le cours Léopold, est ornée de pilastres ioniques, légers et élégants, et surmontée d’un groupe sculpté composé d’une figure guerrière casquée, tenant la palme de la victoire de sa main droite et supportant le médaillon autrefois à l’effigie de Louis XVI. Au-dessus, la Renommée tient une couronne de lauriers. L’Amérique est figurée par la présence d’un enfant noir appuyé sur un carquois et admirant le portrait du roi qui contribua à la libération de son peuple. Sur le bas-relief de gauche, la France rendant hommage à son roi, tandis qu’un enfant dépose des fleurs aux pieds du souverain. Dans le bas-relief opposé, le roi, assis et accompagné de la figure de Mercure portant un caducée, reçoit l’hommage d’un enfant noir coiffé d’une couronne de plumes, accessoire identifiant le personnage comme étant originaire du Nouveau Monde. Le roi lui offre un rameau d’olivier, symbole de paix, d’union entre les deux pays et de victoire sur l’Angleterre.
+			<br><br>
+			La façade extérieure, traitée en bossage vermiculé, présente un aspect plus imposant et martial, servi par les allégories de la façade extérieure qui avaient pour but de marquer les étrangers lors de leur passage dans l’ancienne cité ducale, dont le passé militaire est illustré par un relief représentant la Bataille de Nancy, symbole de l’attachement des Lorrains à leur ancien passé ducal. Quatre trophées d’armes agrémentent le décor de cette face, dont l’un figure une dépouille de lion, qui pourrait peut-être symboliser Charles le Téméraire. Des armes de France qui ornaient le sommet de la porte, et qui ont été bûchées à la Révolution, il ne reste aujourd’hui que le collier de l’ordre de Saint-Michel.</p>
+		</div>
+		<div class="blanc">
+			<h6>LA DÉDICACE AU LIEUTENANT DÉSILLES</h6>
+			<p>Quelques années après sa construction, en 1790, la porte Saint-Louis fut le théâtre d’un événement connu sous le nom d’Affaire de Nancy. Les régiments alors en garnison à Nancy se mutinèrent, car ils ne touchaient plus leur solde, et leur révolte fut sévèrement réprimée par les troupes du marquis de Bouillé. Au cours de ce combat, André Désilles, un lieutenant d’origine malouine âgé de 23 ans, s’interposa entre les unités et en fut grièvement blessé. Il mourut le 17 octobre suivant, ses blessures s’étant infectées. C’est seulement en 1867 que la porte Saint-Louis prit le nom de Désilles, dont le sacrifice devint un symbole d’union et de dévouement.</p>
+		</div>
+		<div class='gris'>
+			<h6>LE MONUMENT DU SOUVENIR</h6>
+			<p>Il fallut attendre 1976 pour que l'édifice devienne le monument du Souvenir, à la suite d'une décision du Conseil municipal du 4 novembre de la même année. La porte devint alors le lieu de commémoration principal de la ville, et fut consacrée comme telle par une cérémonie qui se déroula le 25 novembre suivant, en présence du président Valéry Giscard d’Estaing. Cette porte aux symboles variés est devenue progressivement un lieu digne de matérialiser le culte rendu aux morts des conflits contemporains, dans un souci d’unité et de centralisation nécessaires.</p>
+		</div>
+		<div class="blanc">
+			<h5>PRÉSENTATION DU PROJET DU MÉMORIAL DÉSILLES</h5>
+			<h6>RÉAMÉNAGEMENT DE L'ESPLANADE DU SOUVENIR FRANÇAIS</h6>
+			<img src="{{ asset('img/p1.JPG') }}" class="porte img-fluid rounded mx-auto d-block"/>
+			<p>Dans le cadre des commémorations du Centenaire de la Grande Guerre, la Ville de Nancy a initié un important projet mémoriel et patrimonial autour de la place du Souvenir français et de la porte Désilles, afin de réaménager cet espace, dont la disposition originale est aujourd’hui difficile à appréhender, et d’engager une campagne de restauration de cet édifice aujourd’hui endommagé. À l’origine de cette démarche, c’est la nécessité de regrouper les manifestations commémoratives en un seul espace qui a présidé à ce choix urbanistique, patrimonial et mémoriel, afin de redonner à la place et à la porte une meilleure lisibilité.</p>
+		</div>
+		<div class="gris">
+			<h6>UNE UNIFICATION PROGRESSIVE DES LIEUX DE MÉMOIRE</h6>
+			<img src="{{ asset('img/p2.JPG') }}" class="porte img-fluid rounded mx-auto d-block"/>
+			<p>Dès 1919, cet espace public fut employé à l’occasion des célébrations organisées à l’issue de la Première Guerre mondiale. Un cénotaphe éphémère y fut alors édifié afin de célébrer le retour des 26e et 69e régiments d’infanterie, tandis qu’un monument aux morts de la Grande Guerre fut construit au cimetière du Sud, à partir de 1923. Il fallut attendre plusieurs décennies pour parvenir à une unification effective des lieux mémoriels. Le 25 novembre 1976, la ville reçut la visite du président Valéry Giscard d’Estaing, afin d’inaugurer officiellement la porte restaurée ainsi que la dalle qui fut installée au sol, et qui porte la mention suivante : « La Ville de Nancy à tous ses enfants morts pour la France au cours de son Histoire ».</p>
+			<img src="{{ asset('img/p3.JPG') }}" class="porte img-fluid rounded mx-auto d-block"/>
+			<p>D’autres plaques furent progressivement fixées sous la porte, rendant hommage aux Nancéiens morts lors de la bataille de Yorktown, aux victimes civiles des guerres, aux veuves et orphelins victimes des guerres, aux militaires et aux civils morts pour la France en Indochine et en Corée, aux militaires et aux civils morts pour la France lors de la guerre d'Algérie et des combats de Tunisie et du Maroc et enfin, aux harkis.
+			<br><br>
+			Le projet en cours d’élaboration a pour fin de restituer la charge symbolique de la porte Désilles et de la place qui l’accueille, et s’accompagnera d’une commande artistique dont la fonction sera de signifier à tous la valeur mémorielle de l’édifice, dont la compréhension fut progressivement amoindrie par les différents aménagements du site.
+			<br><br>
+			Parallèlement à la redistribution et à la requalification du lieu, le cimetière du Sud doit également faire l’objet d’une réhabilitation et d’une mise en valeur, puisqu’il est destiné à recevoir la liste des noms des militaires morts pour la France, qui n’ont jamais été inscrits sur un monument unique.</p>
+		</div>
+		
+		{% include "@App/includes/footer.html.twig" %}	
+    </body>
+</html>

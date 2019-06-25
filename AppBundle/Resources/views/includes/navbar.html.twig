@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#36393d">
+	<a class="navbar-brand" href="{{ path('accueil') }}"><img src="{{ asset('img/Nancy-logo.png') }}" style=" width:130px;height:auto;"/></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="n navbar-nav text-uppercase">
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('accueil') }}" style="color:white">Accueil</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('soldat') }}" style="color:white">Morts pour la France</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('projet') }}" style="color:white">Projet Mémorial Désilles</a>
+			</li>
+			<li class="nav-item">
+				<a class="c nav-link" href="{{ path('comite') }}" style="color:white">Comité Scientifique</a>
+			</li>
+			<li class="nav-item">
+				<a class="c nav-link" href="{{ path('contact') }}" style="color:white">Contact</a>
+			</li>
+		</ul>
+	</div>
+</nav>

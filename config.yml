@@ -1,0 +1,216 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+    app.path.images : /img
+    import_img: '%kernel.root_dir%/../web/img'
+    import_csv: '%kernel.root_dir%/../web/csv' 
+    
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        dql:
+            numeric_functions:
+                Rand: AppBundle\Form\Rand
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+    
+vich_uploader:
+    db_driver: orm
+    mappings :
+        images :
+            uri_prefix : '%app.path.images%'
+            upload_destination : '%kernel.root_dir%/../web/%app.path.images%'
+            
+easy_admin:
+    entities:
+        Soldat:
+            class: AppBundle\Entity\Soldat
+            label: 'Soldat'
+            # disabled_actions: ['delete','new',edit]
+            form:
+                title: "%%entity_label%%"   
+            
+            list:
+                fields:
+                    - actif
+                    - nom
+                    - prenom
+                    - matricule
+                    - { property : 'dateNaissance' , type : 'date' }
+                    - { property : 'dateDeces' , type : 'date' }
+                    - { property : 'portrait' , type : 'image', base_path: '%app.path.images%' }
+            edit: 
+                fields:
+                    - actif
+                    - nom
+                    - prenom
+                    - grade
+                    - matricule
+                    - corps
+                    - { property : 'dateNaissance' , type: 'AppBundle\Form\CustomDateType' }
+                    - departementNaissance
+                    - communeNaissance
+                    - { property : 'DateDeces' , type: 'AppBundle\Form\CustomDateType' }
+                    - { property : 'paysDeces' , type : 'text' }
+                    - { property : 'departementDeces' , type : 'text' }
+                    - { property : 'communeDeces' , type : 'text' }
+                    - complementDeces
+                    - conditionDeces
+                    - { property : 'derniereResidence' , type : 'text' }
+                    - adresse
+                    - { property : 'portrait' , type : 'text', label: 'nom de l''image' }
+                    - complementInfo
+                    - { property : 'complementImg1' , type : 'text', label: 'complement nom img1' }
+                    - { property : 'complementImg2' , type : 'text', label: 'complement nom img2' }
+                    - { property : 'complementImg3' , type : 'text', label: 'complement nom img3' }
+                    - { property : 'idConflit' }
+            new:
+                fields:
+                   - actif
+                   - nom
+                   - prenom
+                   - grade
+                   - matricule
+                   - corps
+                   - { property : 'dateNaissance' , type: 'AppBundle\Form\CustomDateType' }
+                   - departementNaissance
+                   - communeNaissance
+                   - { property : 'DateDeces' , type: 'AppBundle\Form\CustomDateType' }
+                   - { property : 'paysDeces' , type: 'text'  }
+                   - { property : 'departementDeces' , type : 'text' }
+                   - { property : 'communeDeces' , type : 'text' }
+                   - complementDeces
+                   - conditionDeces
+                   - { property : 'derniereResidence' , type : 'text' }
+                   - adresse
+                   - { property : 'portrait' , type : 'text', label: 'nom de l''image' }
+                   - complementInfo
+                   - { property : 'complementImg1' , type : 'text', label: 'complement nom img1' }
+                   - { property : 'complementImg2' , type : 'text', label: 'complement nom img2' }
+                   - { property : 'complementImg3' , type : 'text', label: 'complement nom img3' }
+                   - { property : 'idConflit', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Conflit' } }
+                    
+        Conflit:
+            class: AppBundle\Entity\Conflit
+            label: 'Conflit'
+            form:
+                title: "%%entity_label%%"
+            edit:
+                fields:
+                    - nom
+                    - { property: 'dateDebut', type: 'AppBundle\Form\CustomDateType'}
+                    - { property: 'dateFin', type: 'AppBundle\Form\CustomDateType'}
+                    - abrevation
+            new:
+                fields:
+                    - nom
+                    - { property: 'dateDebut', type: 'AppBundle\Form\CustomDateType'}
+                    - { property: 'dateFin', type: 'AppBundle\Form\CustomDateType'}  
+                    - abrevation                    
+        Partenaire:
+            class: AppBundle\Entity\Partenaire
+            label: 'Partenaire'
+            form:
+                title: "%%entity_label%%"  
+    site_name: 'Mémorial'    
+    design:
+        brand_color: '#f15252'
+        menu:
+            - { label: 'Classes' }
+            - Soldat
+            - Conflit
+            - Partenaire
+            - { label: 'Actions' }
+            - { label: 'Import d''image', route: 'import' }
+            - { label: 'Import de CSV', route: 'csv' }
+            - { label: 'Export Base complète', route: 'export' }
+            - { label: 'Export Decaux', route: 'decaux' }
+            - { label: 'Retour sur ancienne base', route: 'backup' }
+
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y'   
+    list:
+        title: '%%entity_label%%'
+        actions:
+            - { name: 'show', icon: 'search', label: false }
+            - { name: 'edit', icon: 'pencil', label: false }
+            - { name: 'delete', icon: 'times', label: false }
+            - { name: 'new', label: 'Ajouter' }
+            - { name: 'search', label: 'Rechercher' } 
+            
+    edit:
+        actions:
+            - { name: 'delete', label: 'Supprimer' }
+            - { name: 'list', label: 'Retour' }
+    show: 
+        title: '%%entity_label%%'
+        actions:
+            - { name: 'edit', label: 'Sauvegarder' }
+            - { name: 'delete', label: 'Supprimer' }
+            - { name: 'list', label: 'Retour' }
+            
+    new:
+        actions:
+            - { name: 'list', label: 'Retour' }

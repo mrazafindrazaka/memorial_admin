@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Mémorial Numérique{% endblock %}</title>
+        {% block stylesheets %}
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		{% endblock %}
+		{% block head_javascript %}
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+		{% include "@App/includes/navbar.html.twig" %}
+		<div class="bt">
+			<a type="button" href="javascript:history.back()" class="mob f btn btn-default" >Retour</a>	
+		</div>
+		<div class="all">
+			<a type="button" href="javascript:history.back()" class="fle" ><</a>
+			<h3>{{detail[0].nom}} {{detail[0].prenom}}</h3>
+			<div class="left">
+				{% if detail[0].portrait!=''%}
+				<img src="{{ asset('img/' ~ detail[0].portrait) }}" class="img-fluid rounded mx-auto d-block" style="height:auto;"/>
+				{% else %}
+				<img src="{{ asset('img/pasdephoto.png')}}" class="img-fluid rounded mx-auto d-block" style="height:auto;max-width:500px;"/>
+				{% endif %}
+			</div>
+			<div class="right">
+				<ul  class="list-group">
+					<li class="list-group-item"><b>Conflit: </b>{{detail[0].idConflit}}</li> 
+					<li class="list-group-item"><b>Nom: </b>{{detail[0].nom}}</li>
+					<li class="list-group-item"><b>Prénom: </b>{{detail[0].prenom}}</li>
+					<li class="list-group-item"><b>Grade: </b>{{detail[0].grade}}</li>
+                    <li class="list-group-item"><b>Matricule: </b>{{detail[0].matricule}}</li>
+					<li class="list-group-item"><b>Corps: </b>{{detail[0].corps}}</li>
+					<li class="list-group-item"><b>Date de naissance: </b>{% if detail[0].dateNaissance != null %} {{detail[0].dateNaissance | date("d/m/Y")}}{% else %} inconnue {% endif %}</li>
+					<li class="list-group-item"><b>Département de naissance: </b>{{detail[0].departementNaissance}}</li>
+					<li class="list-group-item"><b>Commune de naissance: </b>{{detail[0].communeNaissance}}</li>
+					<li class="list-group-item"><b>Date de décès: </b>{% if detail[0].dateDeces != null %} {{detail[0].dateDeces | date("d/m/Y")}} {% else %} inconnue {% endif %}</li>
+					<li class="list-group-item"><b>Pays de décès: </b>{{detail[0].paysDeces}}</li>
+					<li class="list-group-item"><b>Département de décès: </b>{{detail[0].departementDeces}}</li>
+					<li class="list-group-item"><b>Commune de décès: </b>{{detail[0].communeDeces}}</li>
+					<li class="list-group-item"><b>Condition de décès: </b>{{detail[0].conditionDeces}}</li>
+					<li class="list-group-item"><b>Dernière résidence: </b>{{detail[0].derniereResidence}}</li>
+					<li class="list-group-item"><b>Adresse: </b>{{detail[0].adresse}}</li>
+					<li class="list-group-item"><b>Complément d'information: </b>{{detail[0].complementInfo}}</li>
+					{% if detail[0].complementImg1!='' and etail[0].complementImg2!='' and etail[0].complementImg3!='' %}
+					<b class='fin'>Documents complémentaires: </b>
+					{% endif %}
+					{% if detail[0].complementImg1!=''%}
+						<img src="{{ asset('img/{{detail[0].complementImg1}}') }}" data-toggle="modal" data-target="#infos" id="min" class="img-fluid rounded mx-auto"/>
+						<div class="modal" id="infos">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-body">
+								<img src="{{ asset('img/{{detail[0].complementImg1}}') }}" class="img-fluid rounded mx-auto d-block"/>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						{% endif %}
+						{% if detail[0].complementImg2!=''%}
+						<img src="{{ asset('img/{{detail[0].complementImg2}}') }}" id="min" data-toggle="modal" data-target="#infos2" class="img-fluid rounded mx-auto"/>
+						<div class="modal" id="infos2">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-body">
+								<img src="{{ asset('img/{{detail[0].complementImg2}}') }}" class="img-fluid rounded mx-auto d-block"/>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						{% endif %}
+						{% if detail[0].complementImg2!=''%}
+						<img src="{{ asset('img/{{detail[0].complementImg3}}') }}" id="min" data-toggle="modal" data-target="#infos3" class="img-fluid rounded mx-auto"/>	
+						<div class="modal" id="infos3">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-body">
+								<img src="{{ asset('img/{{detail[0].complementImg3}}') }}" class="img-fluid rounded mx-auto d-block"/>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						{% endif %}
+				</ul>
+			</div>			
+		</div>
+		<div class="gris">
+			<h5>CONTACTEZ-NOUS</h5>
+			<p>Vous souhaitez ajouter une fiche ? <br>Apporter des précisions sur une fiche ?</p>
+			<p>Contactez-nous via <a href="https://demarches.nancy.fr/des-informations-sur-un-soldat/">ce formulaire en ligne</a></p>
+		</div>
+		
+		{% include "@App/includes/footer.html.twig" %}	
+    </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Mémorial Numérique{% endblock %}</title>
+        {% block stylesheets %}
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		{% endblock %}
+		{% block head_javascript %}
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="{{asset('js/jquery.tablesorter.min.js')}}"></script>
+		<script src="{{asset('js/jquery.tablesorter.min.js')}}"></script>
+		<script src="{{asset('js/app.js')}}"></script>
+		{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+		{% include "@App/includes/navbar.html.twig" %}
+		<div class="liste">
+			<h5>LISTE DES MORTS POUR LA FRANCE</h5>
+			<p>En application de la loi du 28 février 2012, demandant l’inscription des noms des morts pour la France sur les monuments aux morts communaux, les morts, militaires ou civils, figurant dans cette liste doivent être natifs de Nancy ou y avoir résidé avant leur décès. Ils doivent également avoir reçu la mention « Mort pour la France », créée par la loi du 2 juillet 1915, qui honore la mémoire des victimes de guerre.</p>
+			<div class="bouton">
+			<div class="">
+				<a href="{{ path('random') }}"><input type="button" class="btn btn-info" value="Découvrez un soldat"></a>
+				
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				Filtrer par conflit
+				<span class="caret"></span>
+				</button>
+				<ul class="bg dropdown-menu " aria-labelledby="dropdownMenu1">
+					<li class="b">
+						<a href="{{ path('soldat')}}" id="1GM">Toutes Guerres</a>
+					</li>
+					{% for confl in tabconflit %}
+                        <li class="b">
+                            <a href="{{ path('conflit',{'conflit': confl.nom}) }}" id="{{confl.abrevation}}">{{confl.nom}}</a>
+                        </li>
+                    {% endfor %}
+				</ul>
+				</div>
+				<div class="">
+					<form action="" method="get">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="Rechercher un NOM ou PRENOM ou MATRICULE d'un soldat" name="recherche" required />
+							<input type="submit" class="material-icons" style="font-size:36px" value="search"/>
+						</div>
+					</form>
+					
+				</div>
+			</div>	
+		</div>
+	
+		<div class="container">
+		{% if conflit is defined%}
+			<b>Filtrer par : </b> {{conflit}}<br> 
+		{% endif %}
+		{% if app.request.queryString is defined and app.request.queryString!='' %}
+			<b>Rechercher par : </b>{{ app.request.get('recherche') }}
+		{% endif %}
+		
+			<div class="row">
+				<table  class="ta table table-list-search">
+					<thead class="couleur">
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+                            <th>Matricule</th>
+							<th  class="ordi">Naissance</th>
+							<th>Décès</th>
+							<th class="ordi">Conflit</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="tab">
+				<div class="lis" id="lock" style="background-image:url({{ asset('img/liste.jpg') }})">
+					<p><b>Cliquez pour accéder à la liste</b></p>
+				</div>
+				 <table id="table" class="t table ">
+							<thead class='trie'>
+								<tr style="font-size:25px;">
+									<th id="nom">&#x27A4</th>
+									<th id="prenom">&#x27A4</th>
+                                    <th id="matricule">&#x27A4</th>
+									<th id="naiss" class="ordi">&#x27A4</th>
+									<th id="deces">&#x27A4</th>
+									<th id="conflit" class="ordi">&#x27A4</th>
+								</tr>
+							</thead>
+							<tbody>	
+								{% for s in soldat %}
+								<tr class="detail" onclick="document.location='{{ path('detail',{'id':s.id}) }}'"> 
+									<td>{{s.nom}}</td>
+									<td>{{s.prenom}}</td>
+                                    <td>{{s.matricule}}</td>
+									{% if s.dateNaissance=='' %}
+										<td class="ordi">inconnu</td>
+									{% else %}
+										<td class="ordi">{{s.dateNaissance | date("d/m/Y")}}</td>
+									{% endif %}
+									{% if s.dateDeces=='' %}
+										<td class="ordi">inconnu</td>
+									{% else %}
+										<td>{{s.dateDeces | date("d/m/Y")}}</td>
+									{% endif %}
+									<td class="ordi">{{s.idConflit }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+					</table>   
+				</div>
+			</div>
+		</div>
+		<div class="gris">
+			<h5>CONTACTEZ-NOUS</h5>
+			<p>Vous souhaitez ajouter une fiche ? <br>Apporter des précisions sur une fiche ?</p>
+			<p>Contactez-nous via <a href="https://demarches.nancy.fr/des-informations-sur-un-soldat/">ce formulaire en ligne</a></p>
+		</div>
+		{% include "@App/includes/footer.html.twig" %}	
+		
+    </body>
+</html>
